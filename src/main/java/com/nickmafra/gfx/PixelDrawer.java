@@ -22,6 +22,10 @@ public class PixelDrawer {
     }
 
     public void draw(Graphics2D g) {
+        draw(g, width, height, scale, pixelColor);
+    }
+
+    public static void draw(Graphics2D g, int width, int height, int scale, BiFunction<Integer, Integer, Color> pixelColor) {
         for (int y = 0; y < height; y ++) {
             for (int x = 0; x < width; x ++) {
                 g.setColor(pixelColor.apply(x, y));
