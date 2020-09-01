@@ -42,6 +42,11 @@ public class Graphic {
         });
     }
 
+    public void addMouseActionListener(MouseActionListener mouseActionListener) {
+        component.addMouseListener(mouseActionListener);
+        component.addMouseMotionListener(mouseActionListener);
+    }
+
     public void start() {
         component.setPreferredSize(dimension);
         jframe.pack();
