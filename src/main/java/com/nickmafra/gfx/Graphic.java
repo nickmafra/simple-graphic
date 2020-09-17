@@ -25,6 +25,14 @@ public class Graphic {
         dimension = new Dimension(width, height);
     }
 
+    public JFrame getJframe() {
+        return jframe;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
     public void setPanelSize(int width, int height) {
         this.dimension = new Dimension(width, height);
     }
@@ -56,6 +64,10 @@ public class Graphic {
 
     public boolean isVisible() {
         return jframe.isVisible();
+    }
+
+    public void close() {
+        jframe.setVisible(false);
     }
 
     public void repaint() {

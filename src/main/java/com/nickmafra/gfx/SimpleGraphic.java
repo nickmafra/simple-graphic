@@ -1,5 +1,7 @@
 package com.nickmafra.gfx;
 
+import com.nickmafra.concurrent.LimitedRateThread;
+
 public class SimpleGraphic extends Graphic {
 
     private final LimitedRateThread thread;
