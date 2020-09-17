@@ -8,8 +8,18 @@ public class SimpleGraphic extends Graphic {
 
     public SimpleGraphic(String title, int width, int height, double fps) {
         super(title, width, height);
-        thread = new LimitedRateThread((int) (1000 / fps), super::repaint);
-        addOnClosingListener(e -> thread.interrupt());
+        thread = new LimitedRateThread(title + "Update", (int) (1000 / fps), super::repaint);
+        addOnClosingListener(e -> interruptThread());
+    }
+
+    private void interruptThread() {
+        thread.interrupt();
+    }
+
+    @Override
+    public void close() {
+        interruptThread();
+        super.close();
     }
 
     @Override

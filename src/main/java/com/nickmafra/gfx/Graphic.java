@@ -67,7 +67,7 @@ public class Graphic {
     }
 
     public void close() {
-        jframe.setVisible(false);
+        jframe.dispose();
     }
 
     public void repaint() {
