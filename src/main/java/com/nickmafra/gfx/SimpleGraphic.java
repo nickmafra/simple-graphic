@@ -1,30 +1,30 @@
 package com.nickmafra.gfx;
 
-import com.nickmafra.concurrent.LimitedRateThread;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleGraphic extends Graphic {
 
-    private final LimitedRateThread thread;
+    private final ScheduledExecutorService executor;
+    private final double fps;
 
     public SimpleGraphic(String title, int width, int height, double fps) {
         super(title, width, height);
-        thread = new LimitedRateThread(title + "Update", (int) (1000 / fps), super::repaint);
-        addOnClosingListener(e -> interruptThread());
-    }
-
-    private void interruptThread() {
-        thread.interrupt();
+        this.fps = fps;
+        executor = Executors.newSingleThreadScheduledExecutor();
+        addOnClosingListener(e -> executor.shutdownNow());
     }
 
     @Override
     public void close() {
-        interruptThread();
+        executor.shutdownNow();
         super.close();
     }
 
     @Override
     public void start() {
         super.start();
-        thread.start();
+        executor.scheduleAtFixedRate(super::repaint, 0, (int) (1000 / fps), TimeUnit.MILLISECONDS);
     }
 }
